@@ -11,15 +11,16 @@ class App extends React.Component {
 
   onDragEnd = result => {};
   render() {
-    return;
-    <DragDropContext onDragEnd={this.onDragEnd}>
-      {this.state.columnOder.map(columnId => {
-        const column = this.state.columns[columnId];
-        const tasks = column.taskIds.map(id => this.state.tasks[id]);
+    return (
+      <DragDropContext onDragEnd={this.onDragEnd}>
+        {this.state.columnOder.map(columnId => {
+          const column = this.state.columns[columnId];
+          const tasks = column.taskIds.map(id => this.state.tasks[id]);
 
-        return <Column key={column.id} column={column} tasks={tasks} />;
-      })}
-    </DragDropContext>;
+          return <Column key={column.id} column={column} tasks={tasks} />;
+        })}
+      </DragDropContext>
+    );
   }
 }
 
