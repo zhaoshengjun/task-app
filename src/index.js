@@ -1,20 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import registerServiceWorker from './registerServiceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import registerServiceWorker from "./registerServiceWorker";
 import initialData from "./initial-data";
+import Column from "./Column";
 
 class App extends React.Component {
-    state = initialData;
+  state = initialData;
 
-    render() {
-        return this.state.columnOder.map(columnId => {
-            const column = this.state.columns[columnId];
-            const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
+  render() {
+    return this.state.columnOder.map(columnId => {
+      const column = this.state.columns[columnId];
+      const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
 
-            return column.title;
-        })
-    }
+      return <Column key={column.id} column={column} tasks={tasks} />;
+    });
+  }
 }
 
-ReactDOM.render( < App / > , document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 registerServiceWorker();
