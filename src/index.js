@@ -11,7 +11,7 @@ class App extends React.Component {
   render() {
     return this.state.columnOder.map(columnId => {
       const column = this.state.columns[columnId];
-      const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
+      const tasks = column.taskIds.map(id => this.state.tasks[id]);
 
       return <Column key={column.id} column={column} tasks={tasks} />;
     });
