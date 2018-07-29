@@ -14,7 +14,15 @@ const Container = styled.div`
 class App extends React.Component {
   state = initialData;
 
+  onDragStart = start => {
+    const homeIndex = this.state.columnOder.indexOf(start.source.droppableId);
+    this.setState({ homeIndex });
+  };
+
   onDragEnd = result => {
+    this.setState({
+      homeIndex: null
+    });
     document.body.style.color = "inherit";
     document.body.style.backgroundColor = "inherit";
     const { destination, source, draggableId } = result;
@@ -70,13 +78,23 @@ class App extends React.Component {
   };
   render() {
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
+      <DragDropContext
+        onDragStart={this.onDragStart}
+        onDragEnd={this.onDragEnd}
+      >
         <Container>
-          {this.state.columnOder.map(columnId => {
+          {this.state.columnOder.map((columnId, index) => {
             const column = this.state.columns[columnId];
             const tasks = column.taskIds.map(id => this.state.tasks[id]);
-
-            return <Column key={column.id} column={column} tasks={tasks} />;
+            const isDropDisabled = index < this.state.homeIndex;
+            return (
+              <Column
+                key={column.id}
+                column={column}
+                tasks={tasks}
+                isDropDisabled={isDropDisabled}
+              />
+            );
           })}
         </Container>
       </DragDropContext>
