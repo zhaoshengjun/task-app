@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
 
 const Container = styled.div`
-  border: 1px solid lightgrey;
+  border: 3px solid lightgrey;
   border-radius: 50%;
   background: white;
   padding: 8px;
@@ -15,6 +15,10 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${props => (props.isDragging ? "lightgreen" : "white")};
+  &:focus {
+    outline: none;
+    border-color: red;
+  }
 `;
 
 export default class Task extends React.Component {
