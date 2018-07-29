@@ -3,8 +3,13 @@ import ReactDOM from "react-dom";
 import registerServiceWorker from "./registerServiceWorker";
 import "@atlaskit/css-reset";
 import { DragDropContext } from "react-beautiful-dnd";
+import styled from "styled-components";
 import initialData from "./initial-data";
 import Column from "./Column";
+
+const Container = styled.div`
+  display: flex;
+`;
 
 class App extends React.Component {
   state = initialData;
@@ -39,12 +44,14 @@ class App extends React.Component {
   render() {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-        {this.state.columnOder.map(columnId => {
-          const column = this.state.columns[columnId];
-          const tasks = column.taskIds.map(id => this.state.tasks[id]);
+        <Container>
+          {this.state.columnOder.map(columnId => {
+            const column = this.state.columns[columnId];
+            const tasks = column.taskIds.map(id => this.state.tasks[id]);
 
-          return <Column key={column.id} column={column} tasks={tasks} />;
-        })}
+            return <Column key={column.id} column={column} tasks={tasks} />;
+          })}
+        </Container>
       </DragDropContext>
     );
   }
